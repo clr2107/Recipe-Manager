@@ -22,11 +22,11 @@ Recipe.create(name: 'pasta', difficulty: 'hard', prep_time: 30, directions: "tes
 Recipe.create(name: 'roast chicken', difficulty: 'hard', prep_time: 30, directions: "test", ingredients: "test", user_id: 2, category: "dinner", image_url: "http://cdn-image.myrecipes.com/sites/default/files/styles/4_3_horizontal_-_1200x900/public/rosemary-garlic-chicken-quarters-sl.jpg?itok=t7lywxvka")
 
 30.times do
-  Recipe.create(name: Faker::Food.dish, difficulty: "Hard", prep_time: Faker::Number.number(2), directions: Faker::Lorem.words, ingredients: Faker::Food.ingredient, user_id: Faker::Number.between(1, 4), category: "Appetizer")
+  Recipe.create(name: Faker::Food.dish, difficulty: ["Hard","Easy", "Medium"].sample, prep_time: Faker::Number.number(2), directions: Faker::Lorem.paragraph, ingredients: Faker::Food.ingredient, user_id: Faker::Number.between(1, 4), category: "Appetizer")
 end
 
+10000.times do
 
-50.times do
   Rating.create(score: Faker::Number.between(1, 5), user_id: Faker::Number.between(1, 4), recipe_id: Faker::Number.between(1, 30))
 end
 

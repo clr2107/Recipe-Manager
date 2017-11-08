@@ -5,20 +5,28 @@
   # GET /recipes.json
   def index
     current_user
-    @recipes = Recipe.order(:name).page params[:page]
+    @recipes = Recipe.all
     if params[:ingredient]
+
       # binding.pry
       @recipes = Recipe.ingredient_search(params[:ingredient]).order(:name).page params[:page]
     # elsif params[:name]
     #   @recipes = Recipe.name_search(params[:name]).order(:name).page params[:page]
+  
+      @recipes = @recipes.ingredient_search(params[:ingredient])
+    elsif params[:name]
+      @recipes = Recipe.name_search(params[:name])
     else
-      @recipes = Recipe.order(:name).page params[:page]
+      @recipes = Recipe.all
+
     end
   end
 
   # GET /recipes/1
   # GET /recipes/1.json
   def show
+    @recipe = Recipe.find_by(id: params[:id])
+    @current_user_rating = Rating.find_by(user: current_user, recipe: @recipe)
   end
 
   # GET /recipes/new
@@ -33,7 +41,6 @@
   # POST /recipes
   # POST /recipes.json
   def create
-
     @recipe = current_user.recipes.create(recipe_params)
 
     respond_to do |format|
