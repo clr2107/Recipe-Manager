@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     def show
       current_user
       @user_recipes = current_user.recipes
+
       render 'show'
     end
 
